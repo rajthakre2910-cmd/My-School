@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manavata High School | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ---- Theme Variables ---- */
+        :root {
+            --blue: #0b3d91;
+            --blue-light: #1a5fb4;
+            --bg-light: #eaf1fb;
+            --white: #fff;
+            --gray: #555;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 60px 0; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 30px;
+        }
+
+        /* ---- Offset sections due to Sticky Header ---- */
+        section[id], div[id] {
+            scroll-margin-top: 75px;
+        }
+
+        /* ---- Buttons ---- */
+        .btn {
+            display: inline-block;
+            padding: 12px 26px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-primary { background: var(--blue); color: var(--white); }
+        .btn-primary:hover { background: var(--blue-light); transform: translateY(-3px); }
+
+        .btn-secondary { background: var(--white); color: var(--blue); border: 2px solid var(--blue); }
+        .btn-secondary:hover { background: var(--blue); color: var(--white); }
+
+        .center-btn { text-align: center; margin-top: 25px; }
+
+        /* ---- Header / Navbar ---- */
+        .header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; }
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo { width: 45px; height: 45px; }
+        .school-name { color: var(--blue); font-size: 1.2rem; font-weight: 600; }
+
+        .nav-menu ul { list-style: none; display: flex; gap: 25px; }
+        .nav-menu a { text-decoration: none; color: #222; font-weight: 500; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--blue); }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 26px; height: 3px; background: var(--blue); }
+
+        /* ---- Hero ---- */
+        .hero {
+            background: linear-gradient(rgba(11,61,145,0.75), rgba(11,61,145,0.75)), url('../images/hero-bg.jpg') center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+        .hero-content h2 { font-size: 2.4rem; margin-bottom: 15px; }
+        .hero-content p { max-width: 600px; margin: 0 auto 25px; }
+
+        /* ---- About Preview ---- */
+        .about-preview { background: var(--bg-light); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-image img { width: 100%; border-radius: 10px; }
+        .about-text p { color: var(--gray); margin-bottom: 20px; }
+
+        /* ---- Facilities ---- */
+        .facilities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .facility-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .facility-card:hover { transform: translateY(-8px); }
+        .facility-card img { width: 100%; height: 150px; object-fit: cover; }
+        .facility-card h3 { color: var(--blue); margin: 15px 0 8px; }
+        .facility-card p { color: var(--gray); font-size: 0.9rem; padding: 0 12px 18px; }
+
+        /* ---- Admission CTA ---- */
+        .admission-cta { background: var(--blue); color: var(--white); text-align: center; padding: 50px 20px; }
+        .admission-cta h2 { margin-bottom: 10px; }
+        .admission-cta p { margin-bottom: 20px; }
+        .admission-cta .btn-primary { background: var(--white); color: var(--blue); }
+
+        /* ---- Gallery ---- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .gallery-item { overflow: hidden; border-radius: 8px; }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; transition: 0.4s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        /* ---- Contact Preview ---- */
+        .contact-preview { background: var(--bg-light); }
+        .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; text-align: center; }
+        .contact-item h3 { color: var(--blue); margin-bottom: 8px; }
+        .contact-item p { color: var(--gray); }
+
+        /* ---- Staff Cards ---- */
+        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
+        .staff-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .staff-card:hover { transform: translateY(-5px); }
+        .staff-card img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
+        .staff-card h3 { color: var(--blue); font-size: 1.1rem; margin-bottom: 5px; }
+        .staff-card p { color: var(--gray); font-size: 0.9rem; }
+
+        /* ---- Map + Form Layout ---- */
+        .map-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .map-box iframe { width: 100%; height: 100%; min-height: 350px; border: 0; border-radius: 8px; }
+        .form-box { background: var(--white); padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .form-box label { display: block; font-weight: 500; margin-bottom: 6px; color: var(--blue); }
+        .form-box input, .form-box textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+
+        /* ---- Footer ---- */
+        .footer { background: var(--blue); color: var(--white); text-align: center; padding: 20px 0; }
+
+        /* ---- Page Banner (used on inner sections) ---- */
+        .page-banner {
+            background: var(--blue);
+            color: var(--white);
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .page-banner h2 { font-size: 2rem; }
+
+        /* ---- Vision & Mission ---- */
+        .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .vm-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .vm-card:hover { transform: translateY(-6px); }
+        .vm-card h3 { color: var(--blue); margin-bottom: 12px; }
+        .vm-section { background: var(--bg-light); }
+
+        /* ---- Objectives List ---- */
+        .objectives-list {
+            max-width: 700px;
+            margin: 0 auto;
+            list-style: none;
+        }
+        .objectives-list li {
+            background: var(--bg-light);
+            margin-bottom: 12px;
+            padding: 14px 20px;
+            border-left: 4px solid var(--blue);
+            border-radius: 6px;
+        }
+
+        /* ---- Embedded Google Form ---- */
+        .gform-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .gform-wrapper iframe {
+            width: 100%;
+            height: 650px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 992px) {
+            .facilities-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid, .map-form-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: var(--white);
+                max-height: 0; overflow: hidden; transition: 0.4s;
+            }
+            .nav-menu.active { max-height: 350px; }
+            .nav-menu ul { flex-direction: column; padding: 10px 20px; gap: 0; }
+            .nav-menu li { border-bottom: 1px solid #eee; }
+            .nav-menu a { display: block; padding: 12px 0; }
+
+            .hero-content h2 { font-size: 1.7rem; }
+            .facilities-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-grid { grid-template-columns: 1fr; }
+            .vm-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================== HEADER / NAVIGATION ===================== -->
+    <header class="header">
+        <div class="container navbar">
+            <div class="logo-box">
+                <img src="Logo.png" alt="School Logo" class="logo">
+                <h1 class="school-name">Manavata High School</h1>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#staff">Staff</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#admission">Admission</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== HOME SECTION ===================== -->
+    <div id="home">
+        <section class="hero">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h2>Welcome to Manavata High School</h2>
+                    <p>Empowering Students with Knowledge, Values & Skills for a Brighter Future</p>
+                    <a href="#admission" class="btn btn-primary">Apply for Admission</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section welcome-section">
+            <div class="container">
+                <h2 class="section-title">Welcome to Our School</h2>
+                <p class="section-text">
+                    Manavata High School has been a center of quality education for years,
+                    nurturing young minds with a strong foundation in academics, discipline,
+                    and character. We believe every child deserves the opportunity to learn,
+                    grow, and succeed.
+                </p>
+            </div>
+        </section>
+
+        <section class="section facilities-section">
+            <div class="container">
+                <h2 class="section-title">Our Facilities</h2>
+                <div class="facilities-grid">
+                    <div class="facility-card">
+                        <img src="Lib.png" alt="Library">
+                        <h3>Library</h3>
+                        <p>A well-stocked library with books for every subject and interest.</p>
+                    </div>
+                    <div class="facility-card">
+                        <img src="Computer lab.png" alt="Computer Lab">
+                        <h3>Computer Lab</h3>
+                        <p>Modern computer lab equipped with the latest systems and internet access.</p>
+                    </div>
+                    <div class="facility-card">
+                        <img src="grnd.jpeg" alt="Sports">
+                        <h3>Sports</h3>
+                        <p>Spacious playground and sports facilities for physical development.</p>
+                    </div>
+                    <div class="facility-card">
+                        <img src="Science lab.jpg" alt="Science Lab">
+                        <h3>Science Lab</h3>
+                        <p>Fully equipped science lab for practical learning and experiments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="admission-cta">
+            <div class="container">
+                <h2>Admissions Open for New Academic Year</h2>
+                <p>Give your child the gift of quality education. Enroll today!</p>
+                <a href="#admission" class="btn btn-primary">Apply for Admission</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <div id="about">
+        <section class="page-banner">
+            <h2>About Our School</h2>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">School History</h2>
+                <p class="section-text">
+                    Manavata High School was established with the goal of providing
+                    quality, affordable education to children in the local community.
+                    Over the years, the school has grown steadily, adding new facilities
+                    and expanding its academic programs while staying true to its
+                    founding values of discipline, knowledge, and character building.
+                </p>
+            </div>
+        </section>
+
+        <section class="section vm-section">
+            <div class="container vm-grid">
+                <div class="vm-card">
+                    <h3>Our Vision</h3>
+                    <p>To be a leading institution that nurtures confident, capable, and responsible individuals ready to contribute to society.</p>
+                </div>
+                <div class="vm-card">
+                    <h3>Our Mission</h3>
+                    <p>To provide inclusive, quality education that develops academic excellence, moral values, and life skills in every student.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section about-preview">
+            <div class="container about-grid">
+                <div class="about-image">
+                    <img src="Principal.png" alt="Principal">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title left-align">Principal's Message</h2>
+                    <p>
+                        "Education is the most powerful tool to shape a better future.
+                        At Manavata High School, we are committed to helping every
+                        student discover their potential and grow into a confident,
+                        responsible citizen. I welcome you to be a part of our school family."
+                    </p>
+                    <p><strong>— Principal, Manavata High School</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">School Objectives</h2>
+                <ul class="objectives-list">
+                    <li>Provide quality education accessible to all students</li>
+                    <li>Encourage discipline, moral values, and good citizenship</li>
+                    <li>Promote academic excellence through modern teaching methods</li>
+                    <li>Support co-curricular activities and holistic development</li>
+                    <li>Maintain a safe and inclusive learning environment</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== STAFF SECTION ===================== -->
+    <div id="staff">
+        <section class="page-banner">
+            <h2>Our Staff</h2>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Principal</h2>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <img src="Principal.png" alt="Principal">
+                        <h3>Mr. U D Bisen Sir</h3>
+                        <p>Principal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--bg-light);">
+            <div class="container">
+                <h2 class="section-title">Teachers</h2>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <h3>Mr. Ramesh Patil</h3>
+                        <p>Senior Teacher - Science</p>
+                    </div>
+                    <div class="staff-card">
+                        <h3>Mrs. Sunita Deshmukh</h3>
+                        <p>Teacher - Mathematics</p>
+                    </div>
+                    <div class="staff-card">
+                        <h3>Mr. Vikas Rao</h3>
+                        <p>Teacher - English</p>
+                    </div>
+                    <div class="staff-card">
+                        <h3>Mrs. Pooja Nair</h3>
+                        <p>Teacher - Social Studies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Office Staff</h2>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <h3>Mr. Suresh Jadhav</h3>
+                        <p>Office Clerk</p>
+                    </div>
+                    <div class="staff-card">
+                        <h3>Mrs. Kavita Bhosale</h3>
+                        <p>Accountant</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== GALLERY SECTION ===================== -->
+    <div id="gallery">
+        <section class="page-banner">
+            <h2>School Gallery</h2>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="building.jpeg" alt="School Building"></div>
+                    <div class="gallery-item"><img src="class.jpeg" alt="Classroom"></div>
+                    <div class="gallery-item"><img src="office.jpeg" alt="Office"></div>
+                    <div class="gallery-item"><img src="Computer lab.png" alt="Computer Lab"></div>
+                    <div class="gallery-item"><img src="Lib.png" alt="Library"></div>
+                    <div class="gallery-item"><img src="anual function.jpg" alt="Annual Function"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== ADMISSION SECTION ===================== -->
+    <div id="admission">
+        <section class="page-banner">
+            <h2>Admission Form</h2>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="gform-wrapper">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfbIaO6AeOa1QMFIVecNza5VRu0-xGwSQ7Ci6eZTNhMFWu8NQ/viewform?embedded=true">Loading…</iframe>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== CONTACT SECTION ===================== -->
+    <div id="contact">
+        <section class="page-banner">
+            <h2>Contact Us</h2>
+        </section>
+
+        <section class="section">
+            <div class="container contact-grid">
+                <div class="contact-item">
+                    <h3>📍 Address</h3>
+                    <p>Near Main Road, Manavata High School, Nagpur, Maharashtra</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div class="contact-item">
+                    <h3>✉️ Email</h3>
+                    <p>info@manavatahighschool.edu.in</p>
+                </div>
+                <div class="contact-item">
+                    <h3>🕒 Office Hours</h3>
+                    <p>Mon - Sat: 8:00 AM - 3:00 PM</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--bg-light);">
+            <div class="container map-form-grid">
+                <div class="map-box">
+                    <iframe src="https://www.google.com/maps?q=Nagpur,Maharashtra&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+                <form class="form-box" id="contactForm">
+                    <label>Name *</label>
+                    <input type="text" required>
+
+                    <label>Email *</label>
+                    <input type="email" required>
+
+                    <label>Message *</label>
+                    <textarea rows="5" required></textarea>
+
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Manavata High School. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===================== JAVASCRIPT ===================== -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        // Toggle menu open/close when hamburger is clicked
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked (mobile) and update active status
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                
+                // Track active state manually
+                navLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
